@@ -1,4 +1,4 @@
-# colibri-collection
+# probiotic-well
 Affiliate probiotic website coded with Python and run with Google App Engine.
 
 ### Prerequisites
