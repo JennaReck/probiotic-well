@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+
+	<link rel="stylesheet" href="/css.script/uploadstyle.css" />
+
+{% endblock %}
+
+{% block nav %} 
+
+	<div class="nav-link-noncurrent nav-links"><a href="/">Home</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/brands">Shop Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/compare">Compare Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/articles">Articles</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/reviews">Reviews</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/about">About</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/contact">Contact</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/resources">Resources</a></div>
+	
+{% endblock %}
+
+{% block content %} 
+	<div class="admin-panel-linkback">
+		<a class="main-links" href="/admin-panel">Back to admin panel</a>
+	</div>
+	<div class="center-text upload-header">
+		<h2>Product Upload:</h2>
+	</div>
+
+	<form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
+
+		<table class="upload-table">
+			<tr>
+				<td>
+					<label for="name">Name:</label>
+				</td>
+		
+				<td>
+					<input type="text" name="name" id="name" class="table-input" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="brand-name">Brand name:</label>
+				</td>
+
+				<td>
+					<input type="text" name="brand-name" id="brand-name" class="table-input" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="large-image">Large image (450x450px):</label>
+				</td>
+		
+				<td>
+					<input type="file" name="large-image" id="large-image" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="slider-image">Slider image (214x165px):</label>
+				</td>
+		
+				<td>
+					<input type="file" name="slider-image" id="slider-image" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="thumbnail-image">Thumbnail image (85x85px):</label>
+				</td>
+			
+				<td>
+					<input type="file" name="thumbnail-image" id="thumbnail-image" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="delivery-method">Delivery method:</label>
+				</td>
+		
+				<td>
+					<input type="text" name="delivery-method" id="delivery-method" class="table-input" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="strain-count">Strain count:</label>
+				</td>
+		
+				<td>
+					<input type="text" name="strain-count" id="strain-count" class="table-input" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="strains">Strains:</label>
+				</td>
+		
+				<td>
+					<input type="text" name="strains" id="strains" class="table-input" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="cfu">CFU (count):</label>
+				</td>
+		
+				<td>
+					<input type="text" name="cfu" id="cfu" class="table-input" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="cfu-quantity">CFU quantity (billions or millions):</label>
+				</td>
+
+				<td>
+					<input type="text" name="cfu-quantity" id="cfu-quantity" class="table-input" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label>Refrigeration required:</label>
+				</td>
+		
+				<td>
+					<input type="radio" name="refrigeration-required" value="y" /> Yes
+					<br />
+					<input type="radio" name="refrigeration-required" value="n" /> No
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label>Stomach acid protection:</label>
+				</td>
+		
+				<td>
+					<input type="radio" name="stomach-acid-protection" value="y" /> Yes
+					<br />
+					<input type="radio" name="stomach-acid-protection" value="n" /> No
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="vegetarian-or-vegan">Vegetarian ("Yes" [or] "No (contains gelatin, etc.)"):</label>
+				</td>
+		
+				<td>
+					<input type="text" name="vegetarian-or-vegan" id="vegetarian-or-vegan" class="table-input" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label>Recommended for:</label>
+				</td>
+		
+				<td>
+					<input type="radio" name="recommended-for" value="kids" /> Kids
+					<br />
+					<input type="radio" name="recommended-for" value="adults" /> Adults
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="price">Price (no dollar sign):</label>
+				</td>
+
+				<td>
+					<input type="text" name="price" id="price" class="table-input" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="servings">Servings ("90" [pearls] or "50" [fluid ounces] etc.):</label>
+				</td>
+
+				<td>
+					<input type="text" name="servings" id="servings" class="table-input" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="serving-measure">Serving measure/type ("pearls", "fluid ounces", "capsules", etc.):</label>
+				</td>
+		
+				<td>
+					<input type="text" name="serving-measure" id="serving-measure" class="table-input" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="price-per-serving">Price per serving (no dollar sign):</label>
+				</td>
+
+				<td>
+					<input type="text" name="price-per-serving" id="price-per-serving" class="table-input" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="review-link">Review link (leave blank, can update it later):</label>
+				</td>
+
+				<td>
+					<input type="text" name="review-link" id="review-link" class="table-input" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="buy-link">Buy link (either Amazon affiliate link or other):</label>
+				</td>
+
+				<td>
+					<input type="text" name="buy-link" id="buy-link" class="table-input" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="seller">Seller ("Amazon", "WholeFoods", etc.):</label>
+				</td>
+
+				<td>
+					<input type="text" name="seller" id="seller" class="table-input" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="seller-rating">Seller rating ("x"/5, divide in half if x/10):</label>
+				</td>
+
+				<td>
+					<input type="text" name="seller-rating" id="seller-rating" class="table-input" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<label for="description">Description (include paragraph tags if needed):</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<textarea name="description" id="description"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<label for="ingredients-and-allergy-info">Ingredients and allergy info (include paragraph tags if needed):</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<textarea name="ingredients-and-allergy-info" id="ingredients-and-allergy-info"></textarea>
+				</td>
+			</tr>
+		</table>
+		
+		<div class="center-text">
+			<input type="submit" value="Submit" class="upload-button" />
+		</div>
+		
+	</form>
+	
+{% endblock %}

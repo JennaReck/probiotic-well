@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block sidebar %} 
+
+	<div class="filter-headers">Filter Options:</div>
+		
+	<form method="POST">
+		<label for="delivery-method" class="filter-labels">Delivery Method:</label>
+		<select id="delivery-method" name="delivery-method" class="filter-dropdowns">
+			<option value="">any</option>
+			{% for method in delivery_methods %}
+				<option value="{{method.delivery_method}}" {% if method.delivery_method == delivery_method %}selected="selected"{% endif %}>{{method.delivery_method}} ({{method.count}})</option>
+			{% endfor %}
+		</select>
+		
+		<label for="strain-count" class="filter-labels">Strain Count:</label>
+		<select id="strain-count" name="strain-count" class="filter-dropdowns">
+			<option value="">any</option>
+			<option value="1-to-2" {% if strain_count == "1-to-2" %}selected="selected"{% endif %}>1 to 2</option>
+			<option value="3-to-5" {% if strain_count == "3-to-5" %}selected="selected"{% endif %}>3 to 5</option>
+			<option value="6" {% if strain_count == "6" %}selected="selected"{% endif %}>6 or more</option>
+		</select>
+		
+		<label for="cfu" class="filter-labels">CFU Count:</label>
+		<select id="cfu" name="cfu" class="filter-dropdowns">
+			<option value="">any</option>
+			<option value="1-to-4" {% if cfu == "1-to-4" %}selected="selected"{% endif %}>1 to 4 billion</option>
+			<option value="5-to-10" {% if cfu == "5-to-10" %}selected="selected"{% endif %}>5 to 10 billion</option>
+			<option value="11" {% if cfu == "11" %}selected="selected"{% endif %}>11 billion plus</option>
+		</select>
+		
+		<label for="refrigeration-required" class="filter-labels">Refrigeration:</label>
+		<select id="refrigeration-required" name="refrigeration-required" class="filter-dropdowns">
+			<option value="">any</option>
+			<option value="n" {% if refrigeration_required == "n" %}selected="selected"{% endif %}>not required</option>
+			<option value="y" {% if refrigeration_required == "y" %}selected="selected"{% endif %}>required</option>
+		</select>
+		
+		<label for="brand-name" class="filter-labels">Brand:</label>
+		<select id="brand-name" name="brand-name" class="filter-dropdowns">
+			<option value="">any</option>
+			{% for brand in brand_names %}
+				<option value="{{brand.name}}" {% if brand.name == brand_name %}selected="selected"{% endif %}>{{brand.name}}</option>
+			{% endfor %}
+		</select>
+		
+		<label for="recommended-for" class="filter-labels">Recommended For:</label>
+		<select id="recommended-for" name="recommended-for" class="filter-dropdowns">
+			<option value="">any</option>
+			<option value="kids" {% if recommended_for == "kids" %}selected="selected"{% endif %}>kids</option>
+			<option value="adults" {% if recommended_for == "adults" %}selected="selected"{% endif %}>adults</option>
+		</select>
+		
+		<label for="price" class="filter-labels">Price:</label>
+		<select id="price" name="price" class="filter-dropdowns">
+			<option value="">any</option>
+			<option value="15" {% if price == "15" %}selected="selected"{% endif %}>$15 and under</option>
+			<option value="16-20" {% if price == "16-20" %}selected="selected"{% endif %}>$16-$20</option>
+			<option value="21-30" {% if price == "21-30" %}selected="selected"{% endif %}>$21-$30</option>
+			<option value="31" {% if price == "31" %}selected="selected"{% endif %}>$31 and over</option>
+		</select>
+		
+		<input type="submit" value="Filter Results" class="filter-buttons" />
+	</form>
+	
+{% endblock %}
+
+{% block nav %} 
+
+	<div class="nav-link-noncurrent nav-links"><a href="/">Home</a></div>
+	<div class="nav-link-current nav-links"><a href="/brands">Shop Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/compare">Compare Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/articles">Articles</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/reviews">Reviews</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/about">About</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/contact">Contact</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/resources">Resources</a></div>
+	
+{% endblock %}
+
+{% block content %} 
+
+	<form method="POST">
+		<div id="brands-sort-container">
+			<label class="sort-headers" for="brands-sort-dropdown">Quick Sort:</label>
+			<select id="brands-sort-dropdown" name="brands-sort-dropdown" onchange="this.form.submit()">
+				<option value="" {% if sort == "" %}selected="selected"{% endif %}>select sort</option>
+				<option value="popular" {% if sort == "popular" %}selected="selected"{% endif %}>most popular</option>
+				<option value="cheapest" {% if sort == "cheapest" %}selected="selected"{% endif %}>cheapest</option>
+				<option value="a-to-z" {% if sort == "a-to-z" %}selected="selected"{% endif %}>A to Z</option>
+			</select>
+		</div>
+	</form>
+	
+	<section id="brands-main-container">
+		{% if products %}
+			{% for product in products %}
+				<div class="brands-product-container" itemscope itemtype="http://schema.org/Product">
+					<a href="{{product.link}}"><img src="{{product.slider_image}}" 
+									alt="{{product.name}}" class="brands-product-img" itemprop="image" /></a>
+					<div class="brands-product-details">
+						<div class="brands-product-title">
+							<h2>
+								<a href="{{product.link}}" class="buy-links" itemprop="name">{{product.name}}</a> 
+							</h2>
+							by <a itemprop="brand" class="main-links" href="/brands?brandname={{product.brand_name}}">{{product.brand_name}}</a>
+						</div>
+						<div class="inline-schema" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+							<h3 itemprop="price">${{product.price}}{% if product.price is add_zero %}0{% endif %}</h3> (${{product.price_per_serving}} per serving)
+						</div>
+						<br />
+						<span class="brands-product-counts">{{product.servings}} {{product.serving_measure}}
+						<br />
+						{% if product.strain_count > 1 %} 
+							{{product.strain_count}} strains
+						{% else %}
+							1 strain
+						{% endif %}
+						<br />
+						{{product.cfu}} {{product.cfu_quantity}} CFU count</span>
+						<br />
+						<div class="brands-product-info-link">
+							<a href="{{product.link}}" class="main-links">More information...</a>
+						</div>
+						<div class="brands-product-seller-link">
+							<a href="{{product.buy_link}}" class="main-links">Sold by {{product.seller}}</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		{% else %}
+			<div class="error center-text">
+				<h2>No products found.</h2>
+			</div>
+		{% endif %}
+	</section>
+	
+{% endblock %}	
+
+{% block pagination %}
+	
+	{{pagination|safe}}
+	
+{% endblock %}
+

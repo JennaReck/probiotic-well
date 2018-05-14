@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+
+	<link rel="stylesheet" href="/css.script/uploadstyle.css" />
+
+{% endblock %}
+
+{% block nav %} 
+
+	<div class="nav-link-noncurrent nav-links"><a href="/">Home</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/brands">Shop Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/compare">Compare Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/articles">Articles</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/reviews">Reviews</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/about">About</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/contact">Contact</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/resources">Resources</a></div>
+	
+{% endblock %}
+
+{% block content %} 
+	<div class="admin-panel-linkback">
+		<a class="main-links" href="/admin-panel">Back to admin panel</a>
+	</div>
+	<div class="center-text upload-header">
+		<h2>Ad Upload:</h2>
+	</div>
+
+	<form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
+
+		<table class="upload-table">
+			<tr>
+				<td>
+					<label>Ad type:</label>
+				</td>
+		
+				<td>
+					<input type="radio" name="ad-type" value="article" /> Article
+					<br />
+					<input type="radio" name="ad-type" value="product" /> Product/other
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="image">Image (204px width for article ads, 204px or smaller width for product/other ads):</label>
+				</td>
+		
+				<td>
+					<input type="file" name="image" id="image" class="table-input" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="title-or-name">Title or name:</label>
+				</td>
+		
+				<td>
+					<input type="text" name="title-or-name" id="title-or-name" class="table-input" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="link-or-buy-link">Link or buy link (Article link, Amazon affiliate link, etc.):</label>
+				</td>
+		
+				<td>
+					<input type="text" name="link-or-buy-link" id="link-or-buy-link" class="table-input" />
+				</td>
+			</tr>
+			<tr>	
+				<td>
+					<label for="price">Price (no dollar sign):</label>
+				</td>
+		
+				<td>
+					<input type="text" name="price" id="price" class="table-input" />
+				</td>
+			</tr>
+		</table>
+		
+		<div class="center-text">
+			<input type="submit" value="Submit" class="upload-button" />
+		</div>
+		
+	</form>
+	
+{% endblock %}

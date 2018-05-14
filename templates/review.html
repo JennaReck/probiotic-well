@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+
+{% block sidebar %} 
+
+	<div class="sidebar-header">Find by Categories:</div>
+		<ul class="list-spacing list-styling">
+			<li>{% if review_count.price != 0 %}<a href="/reviews?category=price" class="main-links">Best for price ({{review_count.price}})</a>{% else %}Best for price (0){% endif %}</li>
+			<li>{% if review_count.popular != 0 %}<a href="/reviews?category=popular" class="main-links">Most popular ({{review_count.popular}})</a>{% else %}Most popular (0){% endif %}</li>
+			<li>{% if review_count.strains_and_cfu != 0 %}<a href="/reviews?category=strains-cfu" class="main-links">Most strains/highest CFU ({{review_count.strains_and_cfu}})</a>{% else %}Most strains/highest CFU (0){% endif %}</li>
+			<li>{% if review_count.pearls != 0 %}<a href="/reviews?category=pearls" class="main-links">Pearls ({{review_count.pearls}})</a>{% else %}Pearls (0){% endif %}</li>
+			<li>{% if review_count.chewable_and_liquid != 0 %}<a href="/reviews?category=chewable-liquid" class="main-links">Chewable/liquid ({{review_count.chewable_and_liquid}})</a>{% else %}Chewable/liquid (0){% endif %}</li>
+			<li>{% if review_count.kids != 0 %}<a href="/reviews?category=kids" class="main-links">For kids ({{review_count.kids}})</a>{% else %}For kids (0){% endif %}</li>
+		</ul>
+	
+	{% for ad in ads %}
+		{{ad|safe}}
+	{% endfor %}
+	
+{% endblock %}
+
+{% block nav %} 
+
+	<div class="nav-link-noncurrent nav-links"><a href="/">Home</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/brands">Shop Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/compare">Compare Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/articles">Articles</a></div>
+	<div class="nav-link-current nav-links"><a href="/reviews">Reviews</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/about">About</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/contact">Contact</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/resources">Resources</a></div>
+	
+{% endblock %}
+
+{% block content %} 
+
+	<section id="review-main-container" itemscope itemtype="http://schema.org/Review">
+		<div class="main-headers">
+			<h2>Review of <span itemprop="itemReviewed">{{review.product.name}}</span></h2>
+		</div>
+		<a href="{{review.product.buy_link}}">
+			<img src="{{review.product.large_image}}" id="review-product-img" 
+				title="Click to view on {{review.product.seller}}" itemprop="image" alt="{{review.product.image_alt}}" /></a>
+			
+		<div id="review-details-container">
+			<table id="review-details-table">
+				<tr>
+					<td class="review-details">
+						Rated: 
+					</td>
+					<td class="review-values">
+						<strong itemprop="reviewRating">{{review.rating}}/10</strong>
+					</td>
+				</tr>
+				<tr>
+					<td class="review-details">
+						Strains:
+					</td>
+					<td class="review-values">
+						<strong>{{review.product.strain_count}}</strong> ({{review.product.strains}})
+					</td>
+				</tr>
+				<tr>
+					<td class="review-details">
+						CFU: 
+					</td>
+					<td class="review-values">
+						<strong>{{review.product.cfu}} {{review.product.cfu_quantity}}</strong>
+					</td>
+				</tr>
+				<tr>
+					<td class="review-details">
+						Cost:
+					</td>
+					<td itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="review-values">
+						<strong itemprop="price">${{review.product.price}}{% if review.product.price is add_zero %}0{% endif %}</strong>
+					</td>
+				</tr>
+				<tr>
+					<td class="review-details">
+						Sold by: 
+					</td>
+					<td class="review-values">
+						<a href="{{review.product.buy_link}}" class="buy-links">{{review.product.seller}}</a>
+					</td>
+				</tr>
+			</table>
+			
+			<div id="review-top-affiliate-container">
+				<p>
+					Affiliate Disclaimer: Probiotic Well uses Amazon affiliate links for qualifying products, 
+					but Probiotic Well does NOT receive or accept compensation for reviews.
+				</p>
+				
+				<p>
+					We strive to provide honest, unbiased reviews. 
+					Please see our full <a href="/disclaimer#affiliate-disclaimer" class="disclaimer-links">affiliate disclaimer</a> for more information.
+				</p>
+			</div>
+		</div>
+		<div class="review-body-and-footer" itemprop="reviewBody">
+			{{review.body|safe}}
+		</div>
+		
+		<div id="review-bottom-seller-container">
+			<a href="{{review.product.buy_link}}" class="buy-links" itemprop="url">Check out {{review.product.name}} on {{review.product.seller}}.</a>
+		</div>
+		
+		<div class="review-body-and-footer">
+			<span id="article-or-review-category">
+				Category: {% for category in review.categories %}<a href="/reviews?category={{category|review_category_filter}}" class="main-links" 
+					title="View more in this category">{{category}}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+			</span>
+			<span id="article-or-review-timestamp" itemprop="datePublished">
+				{{review.date.strftime("%Y/%m/%d")}}
+			</span>
+		</div>
+		<div class="center-text"><h3><a class="main-links" href="javascript:toggleSubscribeForm();">Subscribe</a></h3></div>
+	</section>
+
+	<section>
+		<div class="main-headers">
+			<a href="/reviews" class="product-and-heading-links" title="See all probiotic reviews">
+				<h2>Related Probiotic Reviews</h2>
+			</a>
+		</div>
+		<div class="slider-container">
+			
+			<div class="left-arrow" id="slider-reviews-arrow-left">
+			</div>
+			
+			<div class="right-arrow" id="slider-reviews-arrow-right">
+			</div>
+			<div id="slider-reviews-overflow-container" class="slider-overflow-container">
+				{% for related_review in related_reviews %}
+					<div class="inline-schema" itemscope itemtype="http://schema.org/Product">
+						<a href="{{related_review.link}}" class="product-and-heading-links" itemprop="url">
+							<span class="hidden" itemprop="name">{{related_review.product.name}}</span>
+							<div class="slider-product-container" itemprop="review" itemscope itemtype="http://schema.org/Review">
+								<div class="slider-reviews-product-title">
+									<span itemprop="itemReviewed">{{related_review.product.name}}</span> Review
+								</div>
+								<img src="{{related_review.product.thumbnail_image}}" 
+									alt="{{related_review.product.name}}" class="slider-review-thumb" itemprop="image" />
+								<table class="slider-reviews-details-table">
+									<tr>
+										<td>
+											Rated: 
+										</td>
+										<td>
+											<strong itemprop="reviewRating">{{related_review.rating}}/10</strong>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											Strains:
+										</td>
+										<td>
+											<strong>{{related_review.product.strain_count}}</strong>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											CFU: 
+										</td>
+										<td>
+											<strong>{{related_review.product.cfu}} {{related_review.product.cfu_quantity}}</strong>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											Cost:
+										</td>
+										<td itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+											<strong itemprop="price">${{related_review.product.price}}{% if related_review.product.price is add_zero %}0{% endif %}</strong>
+										</td>
+									</tr>
+								</table>
+									<p itemprop="reviewBody" class="slider-reviews-product-description">
+										{{related_review.body|strip_p_tags|truncate(75, False)}} more.
+									</p>
+							</div>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+	
+	<div id="review-bottom-navigation" class="center-text">
+		<a href="/reviews" class="main-links">
+			Back to main reviews page
+		</a>
+	</div>
+	
+{% endblock %}
+
+{% block email_form %}
+	<div id="subscribe-form-container" class="hidden">
+		<div id="subscribe-form" class="visible-forms">
+			<a href="javascript:toggleSubscribeForm();">
+					<img src="/images/closeicon.png" class="close-button" alt="close button" />
+			</a>
+			<div id="subscribe-header" class="form-headers">
+				<h2>Subscribe for Email Alerts</h2>
+			</div>
+			<label for="subscribe-email" class="email-form-label">Email: </label>
+			<input type="text" id="subscribe-email" class="subscribe-form-input" />
+			I'd like to receive email alerts on new:
+			<br />
+			<label for="subscribe-articles" class="subscribe-form-label">Articles: </label>
+			<input type="checkbox" id="subscribe-articles" />
+			<br />
+			<label for="subscribe-reviews" class="subscribe-form-label">Reviews: </label>
+			<input type="checkbox" id="subscribe-reviews" />
+			<br />
+			<label for="subscribe-sales" class="subscribe-form-label">Probiotic sales:</label>
+			<input type="checkbox" id="subscribe-sales" />
+			<div class="form-buttons">
+				<input type="button" value="Subscribe" onclick="javascript:sendSubscribeForm(true);" /> <input type="button" value="Cancel" onclick="javascript:toggleSubscribeForm();" />
+			</div>
+			<div id="subscribe-error-success-message" class="error"></div>
+			<div class="center-text small-print">
+				Want to unsubscribe or change your email alert settings?<br /><a href="/email-alert-settings" class="main-links">Click here.</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}

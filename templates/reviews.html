@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block sidebar %} 
+
+	<div class="sidebar-header">Find by Categories:</div>
+		<ul class="list-spacing list-styling">
+			<li>{% if review_count.price != 0 %}<a href="/reviews?category=price" class="main-links">Best for price ({{review_count.price}})</a>{% else %}Best for price (0){% endif %}</li>
+			<li>{% if review_count.popular != 0 %}<a href="/reviews?category=popular" class="main-links">Most popular ({{review_count.popular}})</a>{% else %}Most popular (0){% endif %}</li>
+			<li>{% if review_count.strains_and_cfu != 0 %}<a href="/reviews?category=strains-cfu" class="main-links">Most strains/highest CFU ({{review_count.strains_and_cfu}})</a>{% else %}Most strains/highest CFU (0){% endif %}</li>
+			<li>{% if review_count.pearls != 0 %}<a href="/reviews?category=pearls" class="main-links">Pearls ({{review_count.pearls}})</a>{% else %}Pearls (0){% endif %}</li>
+			<li>{% if review_count.chewable_and_liquid != 0 %}<a href="/reviews?category=chewable-liquid" class="main-links">Chewable/liquid ({{review_count.chewable_and_liquid}})</a>{% else %}Chewable/liquid (0){% endif %}</li>
+			<li>{% if review_count.kids != 0 %}<a href="/reviews?category=kids" class="main-links">For kids ({{review_count.kids}})</a>{% else %}For kids (0){% endif %}</li>
+		</ul>
+	
+	{% for ad in ads %}
+		{{ad|safe}}
+	{% endfor %}
+	
+{% endblock %}
+
+{% block nav %} 
+
+	<div class="nav-link-noncurrent nav-links"><a href="/">Home</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/brands">Shop Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/compare">Compare Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/articles">Articles</a></div>
+	<div class="nav-link-current nav-links"><a href="/reviews">Reviews</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/about">About</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/contact">Contact</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/resources">Resources</a></div>
+
+{% endblock %}
+
+{% block content %} 
+
+	<section id="reviews-main-container">
+	
+		{% if not p and not category %}		
+			<div id="reviews-featured">
+				<div class="main-headers">
+					<h2>Featured Reviews</h2>
+				</div>
+				
+				<div id="reviews-featured-container1" class="reviews-featured-containers" itemscope itemtype="http://schema.org/Product">
+					<span class="hidden" itemprop="name">{{featured_review1.product.name}}</span>
+					<a href="{{featured_review1.link}}" class="reviews-featured-container-links" title="Read full review" itemprop="url">
+						<div class="inline-schema" itemprop="review" itemscope itemtype="http://schema.org/Review">
+							<div class="reviews-featured-rating">
+								Rated: <span itemprop="reviewRating">{{featured_review1.rating}}/10</span>
+							</div>
+							<img src="{{featured_review1.product.large_image}}" 
+								alt="{{featured_review1.product.name}}" itemprop="image"/>
+							<div id="reviews-featured-title1" class="reviews-featured-titles" itemprop="itemReviewed">
+								{{featured_review1.product.name}}
+							</div>
+						</div>
+					</a>
+				</div>
+				
+				<div id="reviews-featured-container2" class="reviews-featured-containers" itemscope itemtype="http://schema.org/Product">
+					<span class="hidden" itemprop="name">{{featured_review2.product.name}}</span>
+					<a href="{{featured_review2.link}}" class="reviews-featured-container-links" title="Read full review" itemprop="url">
+						<div class="inline-schema" itemprop="review" itemscope itemtype="http://schema.org/Review">
+							<div class="reviews-featured-rating">
+								Rated: <span itemprop="reviewRating">{{featured_review2.rating}}/10</span>
+							</div>
+							<img src="{{featured_review2.product.large_image}}" 
+								alt="{{featured_review2.product.name}}" itemprop="image" />
+							<div id="reviews-featured-title2" class="reviews-featured-titles" itemprop="itemReviewed">
+								{{featured_review2.product.name}}
+							</div>
+						</div>
+					</a>
+				</div>
+				
+				<div id="reviews-featured-container3" class="reviews-featured-containers" itemscope itemtype="http://schema.org/Product">
+					<span class="hidden" itemprop="name">{{featured_review3.product.name}}</span>
+					<a href="{{featured_review3.link}}" class="reviews-featured-container-links" title="Read full review" itemprop="url">
+						<div class="inline-schema" itemprop="review" itemscope itemtype="http://schema.org/Review">
+							<div class="reviews-featured-rating">
+									Rated: <span itemprop="reviewRating">{{featured_review3.rating}}/10</span>
+							</div>
+							<img src="{{featured_review3.product.large_image}}" 
+								alt="{{featured_review3.product.name}}" itemprop="image" />
+							<div id="reviews-featured-title3" class="reviews-featured-titles" itemprop="itemReviewed">
+								{{featured_review3.product.name}}
+							</div>
+						</div>
+					</a>
+				</div>
+			
+			</div>
+		{% endif %}
+		{% for review in reviews %}
+			<div class="inline-schema" itemscope itemtype="http://schema.org/Product">
+				<span class="hidden" itemprop="name">{{review.product.name}}</span>
+				<div class="inline-schema" itemprop="review" itemscope itemtype="http://schema.org/Review">
+					<div class="main-headers">
+						<a href="{{review.link}}" class="main-links" title="Read full review" itemprop="url">
+							<h3 itemprop="itemReviewed">{{review.product.name}}</h3>
+						</a>
+					</div>
+					<div class="reviews-review-container">
+						<a href="{{review.link}}" title="Read full review">
+							<img src="{{review.product.slider_image}}" 
+								alt="{{review.product.name}}" itemprop="image" />
+						</a>
+						<table class="reviews-details-table">
+							<tr>
+								<td class="reviews-details">
+									Rated: 
+								</td>
+								<td class="reviews-values">
+									<strong itemprop="reviewRating">{{review.rating}}/10</strong>
+								</td>
+							</tr>
+							<tr>
+								<td class="reviews-details">
+									Strains:
+								</td>
+								<td class="reviews-values">
+									<strong>{{review.product.strain_count}}</strong>
+								</td>
+							</tr>
+							<tr>
+								<td class="reviews-details">
+									CFU: 
+								</td>
+								<td class="reviews-values">
+									<strong>{{review.product.cfu}} {{review.product.cfu_quantity}}</strong>
+								</td>
+							</tr>
+							<tr>
+								<td class="reviews-details">
+									Cost:
+								</td>
+								<td class="reviews-values" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+									<strong itemprop="price">${{review.product.price}}{% if review.product.price is add_zero %}0{% endif %}</strong>
+								</td>
+							</tr>
+						</table>
+						<div class="reviews-body" itemprop="reviewBody">
+							{{review.body|truncate(280, False)|safe}} <a href="{{review.link}}" class="more-content-links" title="Read full review">more.</a>{% if review.body|truncate(280, False) is unclosed_p_tag %}</p>{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	
+	</section>
+
+{% endblock %}
+
+{% block pagination %}
+
+	{{pagination|safe}}
+
+{% endblock %}

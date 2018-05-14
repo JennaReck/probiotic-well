@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+
+	<link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
+	
+{% endblock %}
+
+{% block sidebar %} 
+
+	{% for ad in ads %}
+		{{ad|safe}}
+	{% endfor %}
+	
+{% endblock %}
+
+{% block nav %} 
+
+	<div class="nav-link-noncurrent nav-links"><a href="/">Home</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/brands">Shop Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/compare">Compare Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/articles">Articles</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/reviews">Reviews</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/about">About</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/contact">Contact</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/resources">Resources</a></div>
+	
+{% endblock %}
+
+{% block content %} 
+	
+	<div id="cse" style="width: 100%;">Loading</div>
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script type="text/javascript">
+	  function parseQueryFromUrl () {
+		var queryParamName = "q";
+		var search = window.location.search.substr(1);
+		var parts = search.split('&');
+		for (var i = 0; i < parts.length; i++) {
+		  var keyvaluepair = parts[i].split('=');
+		  if (decodeURIComponent(keyvaluepair[0]) == queryParamName) {
+			return decodeURIComponent(keyvaluepair[1].replace(/\+/g, ' '));
+		  }
+		}
+		return '';
+	  }
+	  google.load('search', '1', {language : 'en'});
+	  google.setOnLoadCallback(function() {
+		var customSearchControl = new google.search.CustomSearchControl('014884925291296693590:aod8omltybc');
+		customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+		var options = new google.search.DrawOptions();
+		options.enableSearchResultsOnly();
+		customSearchControl.draw('cse', options);
+		var queryFromUrl = parseQueryFromUrl();
+		if (queryFromUrl) {
+		  customSearchControl.execute(queryFromUrl);
+		}
+	  }, true);
+	</script>
+
+{% endblock %}

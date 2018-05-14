@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+
+	<link rel="stylesheet" href="/css.script/uploadstyle.css" />
+
+{% endblock %}
+
+{% block nav %} 
+
+	<div class="nav-link-noncurrent nav-links"><a href="/">Home</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/brands">Shop Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/compare">Compare Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/articles">Articles</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/reviews">Reviews</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/about">About</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/contact">Contact</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/resources">Resources</a></div>
+	
+{% endblock %}
+
+{% block content %} 
+	<div class="admin-panel-linkback">
+		<a class="main-links" href="/admin-panel">Back to admin panel</a>
+	</div>
+	
+	{% if success %}
+		<div class="center-text upload-header success">
+			<h2>Your settings have been saved</h2>
+		</div>
+	{% endif %}
+	
+	<div class="center-text upload-header">
+		<h2>Featured Probiotics:</h2>
+	</div>
+
+	<form method="POST">
+		<table class="upload-table">
+			{% for probiotic in probiotics %}
+				<tr>
+					<td>
+						<label>{{probiotic.name}}</label>
+					</td>
+					<td>
+						<input type="checkbox" name="{{probiotic.key.id()}}" id="{{probiotic.key.id()}}" value="y" {% if probiotic.slider_featured == True %}checked="checked"{% endif %} />
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+		<div class="center-text">
+			<input type="submit" value="Submit" class="upload-button" />
+		</div>
+	
+		<div class="center-text upload-header">
+			<h2>Featured Articles:</h2>
+		</div>
+
+		<table class="upload-table">
+			<tr>
+				<td>
+				</td>
+				<td>
+					<strong class="featured-top-headings">F</strong> 
+					<strong class="featured-top-headings">S1</strong> 
+					<strong class="featured-top-headings">S2</strong> 
+					<strong class="featured-top-headings">S3</strong>
+					<strong class="featured-top-headings" title="basic list">BL</strong>
+					<strong class="featured-top-headings" title="shopping list">SL</strong>
+					<strong class="featured-top-headings" title="no list">NL</strong>
+				</td>
+			</tr>
+			{% for article in articles %}
+				<tr>
+					<td>
+						<label>{{article.title}}</label>
+					</td>
+					<td>
+						<input type="radio" name="featured" value="{{article.key.id()}}" class="featured-radios" {% if article.featured == "F" %}checked="checked"{% endif %} />
+						<input type="radio" name="side1" value="{{article.key.id()}}" class="featured-radios" {% if article.featured == "S1" %}checked="checked"{% endif %} />
+						<input type="radio" name="side2" value="{{article.key.id()}}" class="featured-radios" {% if article.featured == "S2" %}checked="checked"{% endif %} />
+						<input type="radio" name="side3" value="{{article.key.id()}}" class="featured-radios" {% if article.featured == "S3" %}checked="checked"{% endif %} />
+						<input type="radio" name="{{article.key.id()}}" value="basic" class="featured-radios" {% if article.list_type == "basic" %}checked="checked"{% endif %} />
+						<input type="radio" name="{{article.key.id()}}" value="shopping" class="featured-radios" {% if article.list_type == "shopping" %}checked="checked"{% endif %} />
+						<input type="radio" name="{{article.key.id()}}" value="" class="featured-radios" {% if article.list_type == "" %}checked="checked"{% endif %} />
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+		<div class="center-text">
+			<input type="submit" value="Submit" class="upload-button" />
+		</div>
+	
+		<div class="center-text upload-header">
+			<h2>Featured Reviews:</h2>
+		</div>
+	
+		<table class="upload-table">
+			<tr>
+				<td>
+				</td>
+				<td>
+					<strong class="featured-top-headings-reviews">F1</strong> 
+					<strong class="featured-top-headings" title="middle">F2</strong> 
+					<strong class="featured-top-headings">F3</strong>
+				</td>
+			</tr>
+			{% for review in reviews %}
+				<tr>
+					<td>
+						<label>Review of {{review.product.name}}</label>
+					</td>
+					<td>
+						<input type="checkbox" name="{{review.product_id}}" value="y" {% if review.slider_featured == True %}checked="checked"{% endif %} />
+						<input type="radio" name="featured1" value="{{review.product_id}}" class="featured-radios" {% if review.featured == "F1" %}checked="checked"{% endif %} />
+						<input type="radio" name="featured2" value="{{review.product_id}}" class="featured-radios" {% if review.featured == "F2" %}checked="checked"{% endif %} />
+						<input type="radio" name="featured3" value="{{review.product_id}}" class="featured-radios" {% if review.featured == "F3" %}checked="checked"{% endif %} />
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+		<div class="center-text">
+			<input type="submit" value="Submit" class="upload-button" />
+		</div>
+	</form>
+	
+{% endblock %}

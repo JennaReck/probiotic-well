@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block sidebar %} 
+
+	{% for ad in ads %}
+		{{ad|safe}}
+	{% endfor %}
+	
+{% endblock %}
+
+{% block nav %} 
+
+	<div class="nav-link-noncurrent nav-links"><a href="/">Home</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/brands">Shop Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/compare">Compare Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/articles">Articles</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/reviews">Reviews</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/about">About</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/contact">Contact</a></div>
+	<div class="nav-link-current nav-links">Resources</div>
+	
+{% endblock %}
+
+{% block content %} 
+
+	<section>
+		<div class="main-headers">
+			<h2>Resources</h2>
+		</div>
+		
+		<div id="resources-disclaimer">
+			<strong>Disclaimer:</strong> 
+			<br />
+			<p>
+				The following links are in no way affiliated with Probiotic Well. 
+				They are included on this page as helpful resources to further your probiotic knowledge.
+			</p>
+			
+			<p>
+				We cannot verify every statement made by these resources and do not necessarily agree with 
+				any statements or advice offered therein. 
+			</p>
+		</div>
+		
+		<section class="resources-sections">
+			<div class="main-headers">
+				<h3>Articles:</h3>
+			</div>
+			<ul class="list-spacing list-styling">
+				{% for article in articles %}
+					<li><a href="{{article.link}}">{{article.title}}</a></li>
+				{% endfor %}
+			</ul>
+		</section>
+		
+		<section class="resources-sections">
+			<div class="main-headers">
+				<h3>Studies:</h3>
+			</div>
+			<ul class="list-spacing list-styling">
+				{% for study in studies %}
+					<li><a href="{{study.link}}">{{study.title}}</a></li>
+				{% endfor %}
+			</ul>
+		</section>
+		
+		<section class="resources-sections">
+			<div class="main-headers">
+				<h3>Books:</h3>
+			</div>
+			<ul class="list-spacing list-styling">
+				{% for book in books %}
+					<li><a href="{{book.link}}">{{book.title}}</a></li>
+				{% endfor %}
+			</ul>
+		</section>
+		
+		<section class="resources-sections">
+			<div class="main-headers">
+				<h3>Blogs/Forums:</h3>
+			</div>
+			<ul class="list-spacing list-styling">
+				{% for blog in blogs %}
+					<li><a href="{{blog.link}}">{{blog.link}}</a></li>
+				{% endfor %}
+			</ul>
+		</section>
+		
+		<section class="resources-sections">
+			<div class="main-headers">
+				<h3>Other Websites:</h3>
+			</div>
+			<ul class="list-spacing list-styling">
+				{% for site in websites %}
+					<li><a href="{{site.link}}">{{site.link}} - {{site.title}}</a></li>
+				{% endfor %}
+			</ul>
+		</section>
+		
+	</section>
+
+{% endblock %}

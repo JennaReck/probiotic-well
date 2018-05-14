@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+
+	<link rel="stylesheet" href="/css.script/uploadstyle.css" />
+
+{% endblock %}
+
+{% block nav %} 
+
+	<div class="nav-link-noncurrent nav-links"><a href="/">Home</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/brands">Shop Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/compare">Compare Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/articles">Articles</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/reviews">Reviews</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/about">About</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/contact">Contact</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/resources">Resources</a></div>
+	
+{% endblock %}
+
+{% block content %} 
+	<div class="admin-panel-linkback">
+		<a class="main-links" href="/admin-panel">Back to admin panel</a>
+	</div>
+	{% if success == "y" %}
+		<div class="center-text upload-header success">
+			<h2>The content has been deleted successfully.</h2>
+		</div>
+	{% endif %}
+	
+	{% if success == "n" %}
+		<div class="center-text upload-header success">
+			<h2>An error has occurred. An input was invalid or content was unable to be deleted.</h2>
+		</div>
+	{% endif %}
+
+	<div class="center-text upload-header">
+		<h2>Delete Panel:</h2>
+	</div>
+
+	<form method="POST">
+		<table id="delete-panel-table">
+			<tr>
+				<td>
+					<label for="products">Products:</label>
+				</td>
+				<td>
+					<label for="articles">Articles:</label>
+				</td>
+				<td>
+					<label for="reviews">Reviews:</label>
+				</td>
+				<td>
+					<label for="resources">Resources:</label>
+				</td>
+				<td>
+					<label for="ads">Ads:</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<select name="products" id="products" onchange="this.form.submit()">
+						<option value="">any</option>
+						{% for product in products %}
+							<option value="{{product.key.id()}}">{{product.name}}</option>
+						{% endfor %}
+					</select>
+				</td>
+				<td>
+					<select name="articles" id="articles" onchange="this.form.submit()">
+						<option value="">any</option>
+						{% for article in articles %}
+							<option value="{{article.key.id()}}">{{article.title}}</option>
+						{% endfor %}
+					</select>
+				</td>
+				<td>
+					<select name="reviews" id="reviews" onchange="this.form.submit()">
+						<option value="">any</option>
+						{% for review in reviews %}
+							<option value="{{review.key.id()}}">Review of {{review.product.name}}</option>
+						{% endfor %}
+					</select>
+				</td>
+				<td>
+					<select name="resources" id="resources" onchange="this.form.submit()">
+						<option value="">any</option>
+						{% for resource in resources %}
+							<option value="{{resource.key.id()}}">{{resource.link}}</option>
+						{% endfor %}
+					</select>
+				</td>
+				<td>
+					<select name="ads" id="ads" onchange="this.form.submit()">
+						<option value="">any</option>
+						{% for ad in ads %}
+							<option value="{{ad.key.id()}}">{{ad.title_or_name}}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+		</table>
+	</form>
+	
+	{% if content_type == "product" %}
+		<div class="delete-viewing-div">
+			<h3>{{content.name}}</h3>
+			<img src="{{content.slider_image}}" alt="slider image"/>
+			<strong>Price:</strong> ${{content.price}}
+			<h3>Description:</h3>
+			{{content.description|truncate(500, False)|safe}}{% if content.description|truncate(500, False) is unclosed_p_tag %}</p>{% endif %}
+		</div>
+	{% endif %}
+	
+	{% if content_type == "article" %}
+		<div class="delete-viewing-div">
+			<h3>{{content.title}}</h3>
+			<img src="{{content.image}}" alt="article image" />
+			{{content.body|truncate(500, False)|safe}}{% if content.body|truncate(500, False) is unclosed_p_tag %}</p>{% endif %}
+		</div>
+	{% endif %}
+	
+	{% if content_type == "review" %}
+		<div class="delete-viewing-div">
+			<h3>Review of {{content.product.name}}</h3>
+			<img src="{{content.product.slider_image}}" alt="product image" />
+			<strong>Rating:</strong>{{content.rating}}/10
+			{{content.body|truncate(500, False)|safe}}{% if content.body|truncate(500, False) is unclosed_p_tag %}</p>{% endif %}
+		</div>
+	{% endif %}
+	
+	{% if content_type == "resource" %}
+		<div class="delete-viewing-div">
+			<strong>Resource type:</strong> {{content.resource_type}}
+			<br />
+			<strong>Link:</strong> {{content.link}}
+			{% if content.title %}
+				<br />
+				<strong>Title:</strong> {{content.title}}
+			{% endif %}
+		</div>
+	{% endif %}
+	
+	{% if content_type == "ad" %}
+		<div class="delete-viewing-div">
+			<strong>Ad type:</strong> {{content.ad_type}}
+			<img src="{{content.image}}" alt="ad image" />
+			<strong>{{content.title_or_name}}</strong>
+			<br />
+			<strong>Link:</strong> {{content.link_or_buy_link}}
+			{% if content.price %}
+				<br />
+				<strong>Price:</strong> ${{content.price}}
+			{% endif %}
+		</div>
+	{% endif %}
+	
+	{% if content %}
+		<div class="center-text">
+			<form method="POST">
+				<input type="hidden" value="{{content_type}}" name="content-to-delete-type" />
+				<input type="hidden" value="{{content.key.id()}}" name="content-to-delete" />
+				<input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this?')" class="upload-button" />
+			</form>
+		</div>
+	{% endif %}
+		
+	
+{% endblock %}

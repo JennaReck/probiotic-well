@@ -1,0 +1,109 @@
+<!DOCTYPE Html>
+<html>
+<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="HandheldFriendly" content="true" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	
+	<link rel="stylesheet" href="/css.script/mainstyle.css" />
+	{% block stylesheet %} {% endblock %}
+	<script src="/css.script/jquery.js"></script>
+	<script type="text/javascript" src="/css.script/mainscript.js"></script>
+	
+	<!--[if lt IE 9]>  
+    		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>  
+    		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>  
+  	<![endif]-->    
+	
+	<!--[if IE]>
+		<link rel="stylesheet" href="/css.script/iestyle.css" />
+	<![endif]-->  
+	
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-43323605-2', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+	
+	<title>{{pagetitle}}</title>
+</head>
+
+<body>
+
+
+	<div id="page-wrapper">
+		<div id="header">
+			<a href="/" title="Probiotic Well Home Page">
+				<img src="/images/PWlogo.png" alt="Probiotic Well Logo" title="Probiotic Well Homepage" />
+			</a>
+			{% block header %} {% endblock %}
+		</div>
+		
+		<div id="page-container">
+			<div id="sidebar-border">
+			</div>
+		
+			<div id="sidebar">
+				<script>
+				  (function() {
+					var cx = '014884925291296693590:aod8omltybc';
+					var gcse = document.createElement('script');
+					gcse.type = 'text/javascript';
+					gcse.async = true;
+					gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+						'//www.google.com/cse/cse.js?cx=' + cx;
+					var s = document.getElementsByTagName('script')[0];
+					s.parentNode.insertBefore(gcse, s);
+				  })();
+				</script>
+				<div style="width:0px;overflow:hidden;height:0px;"> 
+					<gcse:searchbox-only>
+				</div>
+				<form id="searchbox_014884925291296693590:aod8omltybc" action="/search" method="POST">
+					<input value="014884925291296693590:aod8omltybc" name="cx" type="hidden" />
+					<input value="FORID:11" name="cof" type="hidden"/>
+					<input id="q" class="sidebar-searchbar" style="" name="q" size="75" type="text" value="Search entire website" onfocus="if(this.value == 'Search entire website'){this.value = '';this.style.color = '#000000';}" />
+					<input type="submit" value="Search" id="sidebar-searchbar-button">
+				</form>
+				
+				{% block sidebar %} {% endblock %}
+
+			</div><div id="main-content-wrapper">
+			
+				<nav id="nav">
+					{% block nav %} {% endblock %}
+					
+					<div id="nav-link-disclaimers"><a href="/disclaimer#affiliate-disclaimer" class="header-and-footer-links">Affiliate Disclaimer</a> 
+						| <a href="/disclaimer#medical-disclaimer" class="header-and-footer-links">Medical Disclaimer</a>
+					</div>
+				</nav>
+				
+				{% block content %} {% endblock %}
+				
+			</div>
+			
+			{% block pagination %} {% endblock %}
+			
+		</div>
+
+		<footer id="footer">
+			<a href="/disclaimer#affiliate-disclaimer" class="header-and-footer-links">Affiliate Disclaimer</a> 
+			<a href="/disclaimer#medical-disclaimer" class="header-and-footer-links">Medical Disclaimer</a>
+			<a href="/contact" class="header-and-footer-links">Contact</a>
+			<a href="/about" class="header-and-footer-links">About</a>
+			<a href="/resources" class="header-and-footer-links">Resources</a>
+		</footer>
+
+	</div>
+
+	{% block email_form %} {% endblock %}
+	
+</body>
+</html>

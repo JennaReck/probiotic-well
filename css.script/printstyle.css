@@ -1,0 +1,9 @@
+#sidebar, #nav, img, #article-footer, #article-email-form-container, #footer, #article-related-container, div .center-text a.main-links {
+	display: none;
+}
+div #citations-container.hidden, #print-header {
+	display:block;
+}
+.main-headers, #header{
+	border:0;
+}

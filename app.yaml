@@ -1,0 +1,49 @@
+application: probioticwell
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: /images  
+  static_dir: images
+
+- url: /images/brands  
+  static_dir: images/brands
+
+
+- url: /css.script
+  static_dir: css.script
+
+- url: /admin/.*
+  script: google.appengine.ext.admin.application
+  login: admin
+
+- url: /google13ceaecaa8c501ab\.html
+  
+  static_files: google13ceaecaa8c501ab.html
+  upload: google13ceaecaa8c501ab\.html
+
+- url: /sitemap\.xml  
+  static_files: sitemap.xml
+  upload: sitemap\.xml
+
+- url: /.*
+  
+  script: main.app
+
+
+
+libraries:
+- name: jinja2
+  version: latest
+
+- name: webapp2
+  version: "2.5.2"
+
+- name: PIL
+  version: "1.1.7"

@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% block sidebar %} 
+
+	{% for ad in ads %}
+		{{ad|safe}}
+	{% endfor %}
+	
+{% endblock %}
+
+{% block nav %} 
+
+	<div class="nav-link-current nav-links">Home</div>
+	<div class="nav-link-noncurrent nav-links"><a href="/brands">Shop Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/compare">Compare Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/articles">Articles</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/reviews">Reviews</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/about">About</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/contact">Contact</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/resources">Resources</a></div>
+	
+{% endblock %}
+
+{% block content %} 
+
+	<section>
+		<div id="goal">
+			<div class="main-headers">
+				<h2>Our Goal</h2>
+			</div>
+			<img src="/images/PWgoal.jpg" id="goal-pic" alt="probiotic bottle" />
+			<div id="goal-text">
+				<h3 id="goal-title">Better health begins with better knowledge</h3>
+				We here at Probiotic Well strive to provide the best collection of probiotic supplement brands, articles, and reviews to help you choose the right probiotic for you.
+			</div>
+		</div>
+	</section>
+	
+	<section>
+		<div id="front-feature">
+			<div class="main-headers">
+					<h2>Featured Article</h2>
+			</div>
+			<div id="front-feature-container" itemscope itemtype="http://schema.org/Article">
+				<a href="{{featured_article.link}}">
+					<img src="{{featured_article.image}}" alt="{{featured_article.image_alt}}" />
+				</a>
+				<div id="front-feature-overlay">
+					<a href="{{featured_article.link}}" title="Read full article" class="main-links">
+						<h3 itemprop="name">{{featured_article.title}}</h3>
+					</a>
+					<div itemprop="articleBody">
+						{{featured_article.body|truncate(150, False)|safe}}<a href="{{featured_article.link}}" itemprop="url" title="Read full article" class="more-content-links">more.</a>
+						{% if featured_article.body|truncate(150, False) is unclosed_p_tag %}</p>{% endif %}
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</section>
+	
+	<section class="clear">
+		<div class="main-headers">
+			<a href="/brands" class="product-and-heading-links" title="See all probiotic brands">
+				<h2>Probiotic Brands</h2>
+			</a>
+		</div>
+		<div class="slider-container">
+			
+			<div class="left-arrow" id="slider-brands-arrow-left">
+			</div>
+			
+			<div class="right-arrow" id="slider-brands-arrow-right">
+			</div>
+			<div id="slider-brands-overflow-container" class="slider-overflow-container">
+			
+				{% for product in products %}
+					<div class="inline-schema" itemscope itemtype="http://schema.org/Product">
+						<a href="{{product.link}}" class="product-and-heading-links" title="{{product.name}}" itemprop="url">
+							<div class="slider-product-container">
+								<img src="{{product.slider_image}}" 
+									alt="{{product.name}}" itemprop="image" />
+								<div class="slider-brands-product-info">
+									<span itemprop="name">{{product.name}}</span>			
+									<br />
+									<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+										<strong itemprop="price">${{product.price}}{% if product.price is add_zero %}0{% endif %}</strong>
+									</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				{% endfor %}
+			
+			</div>
+		</div>
+	</section>
+	
+	<section>
+		<div class="main-headers">
+			<a href="/reviews" class="product-and-heading-links" title="See all probiotic reviews">
+				<h2>Probiotic Reviews</h2>
+			</a>
+		</div>
+		<div class="slider-container">
+			
+			<div class="left-arrow" id="slider-reviews-arrow-left">
+			</div>
+			
+			<div class="right-arrow" id="slider-reviews-arrow-right">
+			</div>
+			<div id="slider-reviews-overflow-container" class="slider-overflow-container">
+				{% for review in reviews %}
+					<div class="inline-schema" itemscope itemtype="http://schema.org/Product">
+						<a href="{{review.link}}" class="product-and-heading-links" itemprop="url">
+							<span class="hidden" itemprop="name">{{review.product.name}}</span>
+							<div class="slider-product-container" itemprop="review" itemscope itemtype="http://schema.org/Review">
+								<div class="slider-reviews-product-title">
+									<span itemprop="itemReviewed">{{review.product.name}}</span> Review
+								</div>
+								<img src="{{review.product.thumbnail_image}}" 
+									alt="{{review.product.name}}" class="slider-review-thumb" itemprop="image" />
+								<table class="slider-reviews-details-table">
+									<tr>
+										<td>
+											Rated: 
+										</td>
+										<td>
+											<strong itemprop="reviewRating">{{review.rating}}/10</strong>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											Strains:
+										</td>
+										<td>
+											<strong>{{review.product.strain_count}}</strong>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											CFU: 
+										</td>
+										<td>
+											<strong>{{review.product.cfu}} {{review.product.cfu_quantity}}</strong>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											Cost:
+										</td>
+										<td itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+											<strong itemprop="price">${{review.product.price}}{% if review.product.price is add_zero %}0{% endif %}</strong>
+										</td>
+									</tr>
+								</table>
+								<p class="slider-reviews-product-description" itemprop="reviewBody">
+									{{review.body|strip_p_tags|truncate(75, False)}} more.
+								</p>
+								
+							</div>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

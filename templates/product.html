@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block sidebar %} 
+	{% for ad in ads %}
+		{{ad|safe}}
+	{% endfor %}
+		
+{% endblock %}
+
+{% block nav %} 
+
+	<div class="nav-link-noncurrent nav-links"><a href="/">Home</a></div>
+	<div class="nav-link-current nav-links"><a href="/brands">Shop Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/compare">Compare Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/articles">Articles</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/reviews">Reviews</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/about">About</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/contact">Contact</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/resources">Resources</a></div>
+	
+{% endblock %}
+
+{% block content %} 
+
+	<section itemscope itemtype="http://schema.org/Product">
+		<div class="product-header">
+			<h1>
+				<a itemprop="name" class="main-links" title="Click to view on Amazon" href="{{product.buy_link}}">{{product.name}}</a>
+					<span class="product-company">by <a itemprop="brand" href="/brands?brandname={{product.brand_name}}">{{product.brand_name}}</a></span>
+			</h1>
+			<div class="product-price-container" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+				<h2 itemprop="price"><a class="main-links" title="Click to view on Amazon" href="{{product.buy_link}}">${{product.price}}{% if product.price is add_zero %}0{% endif %}</a></h2> <span class="product-serving-price">(${{product.price_per_serving}} per serving)</span>
+			</div>
+		</div>
+		<div id="product-img-container">
+			<a title="Click to view on Amazon" href="{{product.buy_link}}">
+				<img src="{{product.large_image}}" 
+				alt="{{product.name}}" id="product-img" itemprop="image" />
+			</a>
+		</div>
+		
+		<section id="product-description-container">
+			
+			<div class="main-headers">
+				<h2>Product Description</h2>
+			</div>
+			<div class="product-description-and-ingredients" itemprop="description">
+				{{product.description|safe}}
+			</div>
+		</section>
+		
+		<div class="product-seller">
+			Sold by: <a href="{{product.buy_link}}" class="buy-links">{{product.seller}} (buy now!)</a>
+		</div>
+		
+		<section id="product-details-container">
+			<div class="main-headers">
+				<h2>Product Details</h2>
+			</div>
+			<ul>
+				<li>Delivery Method: {{product.delivery_method}}</li>
+				<li>Strains: {{product.strain_count}} ({{product.strains}})</li>
+				<li>CFU (bacteria per serving): {{product.cfu}} {{product.cfu_quantity}}</li>
+				<li>Refrigeration: {% if product.refrigeration_required == False %}Not required{% else %}Required{% endif %}</li>
+				<li>Quantity: {{product.servings}} {{product.serving_measure}} </li>
+				<li>Vegetarian: {{product.vegetarian_or_vegan}}</li>
+			</ul>
+		</section>
+		<section id="product-ingredients-container">
+			<div class="main-headers">
+				<h2>Product Ingredients/Allergy Information</h2>
+			</div>
+			<div class="product-description-and-ingredients">
+				{{product.ingredients_and_allergy_info|safe}}
+				<p class="product-ingredients-disclaimer">
+					(Please see full product information at buy link for other possible allergens or ingredients.)
+				</p>
+			</div>
+		</section>
+		
+		<div class="product-bottom-misc">
+			<div class="product-review">
+				{% if product.review_link != "" %}
+					<a href="{{product.review_link}}" class="main-links">Read review</a>
+				{% else %}
+					No review available yet.
+				{% endif %}
+			</div>
+			
+			<a href="{{product.buy_link}}" class="buy-links" itemprop="url">Buy now on {{product.seller}}!</a>
+			
+			<div class="product-compare">
+				<a href="{{compare_link}}" class="main-links">Compare against other top probiotics</a>
+			</div>
+		</div>
+		
+		<section>
+			<div class="main-headers">
+				<a href="/brands" class="product-and-heading-links" title="See all probiotic brands">
+					<h2>Related Probiotics</h2>
+				</a>
+			</div>
+			<div class="slider-container">
+				
+				<div class="left-arrow" id="slider-brands-arrow-left">
+				</div>
+				
+				<div class="right-arrow" id="slider-brands-arrow-right">
+				</div>
+				<div id="slider-brands-overflow-container" class="slider-overflow-container">
+				
+					{% for r_product in related_products %}
+						<div class="inline-schema" itemscope itemtype="http://schema.org/Product">
+							<a href="{{r_product.link}}" class="product-and-heading-links" title="{{r_product.name}}" itemprop="url">
+								<div class="slider-product-container">
+									<img src="{{r_product.slider_image}}" 
+										alt="{{r_product.name}}" itemprop="image" />
+									<div class="slider-brands-product-info">
+										<span itemprop="name">{{r_product.name}}</span>			
+										<br />
+										<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+											<strong itemprop="price">${{r_product.price}}{% if r_product.price is add_zero %}0{% endif %}</strong>
+										</span>
+									</div>
+								</div>
+							</a>
+						</div>
+					{% endfor %}
+				
+				</div>
+			</div>
+		</section>
+		
+	</section>
+
+{% endblock %}

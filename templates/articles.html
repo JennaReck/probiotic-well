@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block sidebar %} 
+
+	<div class="sidebar-header">Most Popular:</div>
+		<ol class="list-spacing">
+			{% for article in popular_list %}
+				<li><a href="{{article.link}}" class="article-list-links">{{article.title}}</a></li>
+			{% endfor %}
+		</ol>
+		
+		<div class="sidebar-header">Probiotic Basics:</div>
+		<ul class="list-spacing list-styling">
+			{% for article in basic_list %}
+				<li><a href="{{article.link}}" class="article-list-links">{{article.title}}</a></li>
+			{% endfor %}
+		</ul>
+		
+		<div class="sidebar-header">What to Consider When Shopping:</div>
+		<ul class="list-spacing list-styling">
+			{% for article in shopping_list %}
+				<li><a href="{{article.list}}" class="article-list-links">{{article.title}}</a></li>
+			{% endfor %}
+		</ul>
+		
+		<div class="sidebar-header">Categories:</div>
+		<ul class="list-spacing list-styling">
+			<li>{% if article_count.general != 0 %}<a href="/articles?category=general" class="main-links">General ({{article_count.general}})</a>{% else %}General (0){% endif %}</li>
+			<li>{% if article_count.shopping != 0 %}<a href="/articles?category=shopping" class="main-links">Shopping ({{article_count.shopping}})</a>{% else %}Shopping (0){% endif %}</li>
+		</ul>
+
+{% endblock %}
+
+{% block nav %} 
+
+	<div class="nav-link-noncurrent nav-links"><a href="/">Home</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/brands">Shop Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/compare">Compare Brands</a></div>
+	<div class="nav-link-current nav-links"><a href="/articles">Articles</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/reviews">Reviews</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/about">About</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/contact">Contact</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/resources">Resources</a></div>
+	
+{% endblock %}
+
+{% block content %} 
+
+	<div id="articles-main-container">
+		{% if not p and not category %}
+			<section>
+				<div class="main-headers">
+					<h2>Featured Articles</h2>
+				</div>
+				
+				<div id="articles-featured-container">
+					<div class="inline-schema" itemscope itemtype="http://schema.org/Article">
+						<a href="{{featured_article.link}}" itemprop="url">
+							<img src="{{featured_article.image}}" id="articles-featured-first-img" title="{{featured_article.body|truncate(75, False)|strip_p_tags}}" alt="{{featured_article.image_alt}}" />
+							<div id="articles-featured-first-title" class="main-links" itemprop="name">
+								{{featured_article.title}}
+							</div>
+						</a>
+					</div>
+					
+					<div class="inline-schema" itemscope itemtype="http://schema.org/Article">
+						<a class="articles-featured-side-links" href="{{featured_side1.link}}" itemprop="url">
+							<div class="articles-featured-side">
+								<img src="{{featured_side1.thumbnail_image}}" class="articles-featured-side-img" title="{{featured_side1.body|truncate(75, False)|strip_p_tags}}" alt="{{featured_side1.image_alt}}" />
+								<div class="articles-featured-side-title main-links" itemprop="name">
+									{{featured_side1.title}}
+								</div>
+							</div>
+						</a>
+					</div>
+					
+					<div class="inline-schema" itemscope itemtype="http://schema.org/Article">
+						<a class="articles-featured-side-links" href="{{featured_side2.link}}" itemprop="url">
+							<div class="articles-featured-side">
+								<img src="{{featured_side2.thumbnail_image}}" class="articles-featured-side-img" title="{{featured_side2.body|truncate(75, False)|strip_p_tags}}" alt="{{featured_side2.image_alt}}" />
+								<div class="articles-featured-side-title main-links" itemprop="name">
+									{{featured_side2.title}}
+								</div>
+							</div> 
+						</a>
+					</div>
+					
+					<div class="inline-schema" itemscope itemtype="http://schema.org/Article">
+						<a class="articles-featured-side-links" href="{{featured_side3.link}}" itemprop="url">
+							<div class="articles-featured-side articles-featured-side-bottom">
+								<img src="{{featured_side3.thumbnail_image}}" class="articles-featured-side-img" title="{{featured_side3.body|truncate(75, False)|strip_p_tags}}" alt="{{featured_side3.image_alt}}" />
+								<div class="articles-featured-side-title main-links" itemprop="name">
+									{{featured_side3.title}}
+								</div>
+							</div>
+						</a>
+					</div>
+					
+				</div>
+			</section>
+		
+			<section id="articles-categories">
+				<div class="main-headers">
+					<h2>Article Categories</h2>
+				</div>
+				
+				<div id="articles-categories-container">
+					<div id="articles-categories-general">
+						<div class="articles-categories-headers">
+							General Information
+						</div>
+						<ul class="articles-categories-list">
+							{% for article in general_category %}
+								<li><a href="{{article.link}}" class="article-list-links">{{article.title}}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+					<div id="articles-categories-general-more">
+						<a href="/articles?category=general" title="View more articles in General Information category" class="main-links">More...</a>
+					</div>
+					
+					<div id="articles-categories-shopping">
+						<div class="articles-categories-headers">
+							Shopping and Comparing
+						</div>
+						<ul class="articles-categories-list">
+							{% for article in shopping_category %}
+								<li><a href="{{article.link}}" class="article-list-links">{{article.title}}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+					<div id="articles-categories-shopping-more">
+						<a href="/articles?category=shopping" title="View more articles in Shopping and Comparing category" class="main-links">More...</a>
+					</div>
+					
+				</div>
+				
+			</section>
+		{% endif %}
+		
+		<section>
+			{% for article in article_list %}
+				<div class="inline-schema" itemscope itemtype="http://schema.org/Article">
+					<div class="main-headers">
+						<a href="{{article.link}}" class="main-links" itemprop="url">
+							<h2 itemprop="name">{{article.title}}</h2>
+						</a>
+					</div>
+					<div class="articles-body-container">
+						<div class="articles-text">
+							<a href="{{article.link}}" title="{{article.title}}">
+								<img src="{{article.thumbnail_image}}" class="articles-img" alt="{{article.image_alt}}" />
+							</a>
+							<div class="inline-schema" itemprop="articleBody">
+								{{article.body|truncate(370, False)|safe}} <a href="{{article.link}}" class="more-content-links" title="Read full article">more.</a>{% if article.body|truncate(370, False) is unclosed_p_tag %}</p>{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</section>
+	
+	</div>
+
+{% endblock %}
+
+{% block pagination %}
+
+	{{pagination|safe}}
+
+{% endblock %}

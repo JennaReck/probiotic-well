@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block sidebar %} 
+
+	{% for ad in ads %}
+		{{ad|safe}}
+	{% endfor %}
+	
+{% endblock %}
+
+{% block nav %} 
+
+	<div class="nav-link-noncurrent nav-links"><a href="/">Home</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/brands">Shop Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/compare">Compare Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/articles">Articles</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/reviews">Reviews</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/about">About</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/contact">Contact</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/resources">Resources</a></div>
+	
+{% endblock %}
+
+{% block content %} 
+
+	<section id="disclaimer-main-container">
+					
+		<div class="main-headers" id="affiliate-disclaimer">
+			<h2>Affiliate Disclaimer</h2>
+		</div>
+		<p>
+			Probiotic Well is a participant in the Amazon Services LLC Associates Program, an 
+			affiliate advertising program designed to provide a means for sites to earn advertising 
+			fees by advertising and linking to amazon.com.
+		</p>
+		
+		<p>
+			Probiotic Well does use affiliate links to Amazon on qualifying probiotics, but this in 
+			no way affects which probiotics get higher ratings or which get featured. Our criteria 
+			for ratings or which probiotics to add to the site are based on CFU counts, strains, 
+			delivery methods, ingredients, etc. Affiliate links on qualifying products are helpful 
+			in covering website and server costs, but sharing honest information and quality probiotics 
+			is always our top priority.
+		</p>
+		<div class="main-headers" id="medical-disclaimer">
+			<h2>Medical Disclaimer</h2>
+		</div>
+		<p>
+			Probiotic Well's content (including articles, reviews, product descriptions, etc.) does not 
+			constitute professional medical advice. This content is provided as an information resource 
+			only and is not guaranteed to be 100% accurate; it should not be relied on to diagnose or treat 
+			any medical conditions. This content is NOT written or approved by a doctor or health care professional.
+		</p>
+		<p>
+			While we strive to provide an accurate ingredient list and allergy information on our reviews or product 
+			information pages, we cannot guarantee the accuracy or completeness of these lists. Please refer 
+			to the product manufacturer's website or other official source for the complete list of ingredients 
+			and allergy information.
+		</p>
+		<p>
+			Please consult a certified physician before making any changes to your diet and/or drug or supplement regimen.
+		</p>
+		<p>
+			We are happy to answer any general questions directed toward our <a href="/contact">contact page</a>, but we do NOT
+			provide medical answers or advice and will NOT attempt to answer any medical questions if sent to us. Please contact
+			or seek help from a certified physician for any medical questions or concerns.
+		</p>
+			
+	</section>
+
+{% endblock %}

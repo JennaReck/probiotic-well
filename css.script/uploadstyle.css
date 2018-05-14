@@ -1,0 +1,73 @@
+.upload-table {
+	margin: 0 auto;
+}
+.upload-table td {
+	width: 250px;
+	padding: 10px 0;
+}
+.table-input {
+	width: 250px;
+}
+.upload-button, .upload-header {
+	margin: 20px 0 0 0;
+}
+.image-container {
+	display: inline-block;
+	margin: 30px 10px;
+}
+.image-container img {
+	width: 200px;
+}
+.image-container input {
+	display: block;
+	width: 200px;
+}
+.message-margin {
+	margin: 30px 0;
+}
+.upload-table textarea {
+	width: 500px;
+	height: 150px;
+}
+.settings-container {
+	margin: 30px auto;
+	width: 250px;
+}
+.settings-ad {
+	display: inline-block;
+}
+.featured-top-headings {
+	padding: 0 6px;
+}
+.featured-top-headings-reviews {
+	padding: 0 3px 0 30px;
+}
+.featured-radios {
+	width: 20px;
+}
+#login-table {
+	margin: 0 auto;
+}
+#admin-link-container {
+	margin: 0 auto;
+	width: 250px;
+}
+#delete-panel-table {
+	margin: 30px auto;
+}
+#delete-panel-table select {
+	width: 180px;
+}
+#delete-panel-table td {
+	padding: 5px 10px;
+}
+.delete-viewing-div {
+	margin: 0 auto;
+	width: 500px;
+}
+.delete-viewing-div img {
+	display: block;
+}
+.admin-panel-linkback {
+	margin: 10px 0 0 0;
+}

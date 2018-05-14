@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+
+	<link rel="stylesheet" href="/css.script/printstyle.css" media="print" />
+
+{% endblock %}
+
+{% block header %}
+
+	<span id="print-header">http://www.probioticwell.com</span>
+
+{% endblock %}
+
+{% block sidebar %} 
+
+	<div class="sidebar-header">Most Popular:</div>
+		<ol class="list-spacing">
+			{% for popular_article in popular_list %}
+				<li><a href="{{popular_article.link}}" class="article-list-links">{{popular_article.title}}</a></li>
+			{% endfor %}
+		</ol>
+		
+		<div class="sidebar-header">Probiotic Basics:</div>
+		<ul class="list-spacing list-styling">
+			{% for basic_article in basic_list %}
+				<li><a href="{{basic_article.link}}" class="article-list-links">{{basic_article.title}}</a></li>
+			{% endfor %}
+		</ul>
+		
+		<div class="sidebar-header">What to Consider When Shopping:</div>
+		<ul class="list-spacing list-styling">
+			{% for shopping_article in shopping_list %}
+				<li><a href="{{shopping_article.link}}" class="article-list-links">{{shopping_article.title}}</a></li>
+			{% endfor %}
+		</ul>
+		
+		<div class="sidebar-header">Categories:</div>
+		<ul class="list-spacing list-styling">
+			<li><a href="/articles?category=general" class="main-links">General ({{article_count['general']}})</a></li>
+			<li><a href="/articles?category=shopping" class="main-links">Shopping ({{article_count['shopping']}})</a></li>
+		</ul>
+	
+{% endblock %}
+
+{% block nav %} 
+
+	<div class="nav-link-noncurrent nav-links"><a href="/">Home</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/brands">Shop Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/compare">Compare Brands</a></div>
+	<div class="nav-link-current nav-links"><a href="/articles">Articles</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/reviews">Reviews</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/about">About</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/contact">Contact</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/resources">Resources</a></div>
+	
+{% endblock %}
+
+{% block content %} 
+
+	<section itemscope itemtype="http://schema.org/Article">
+		<div class="main-headers">
+			<h2 itemprop="name">{{article.title}}</h2>
+		</div>
+		
+		<div id="article-body" itemprop="articleBody">
+			<img src="{{article.image}}" id="article-img" alt="{{article.image_alt}}" />
+			
+			{{article.body|safe}}
+			
+			<div id="article-footer">
+				<span id="article-or-review-category">
+					Category: <a href="/articles?category={{article.category}}" class="main-links" title="View more in this category" itemprop="articleSection">{{article.category}}</a>
+				</span>
+				<span class="article-footer-item">
+					<a href="javascript:toggleEmailForm();" class="main-links">
+						<img src="/images/emailicon.png" alt="email icon" /> Email
+					</a>
+				</span>
+				<span class="article-footer-item">
+					<a href="javascript:window.print();" class="main-links">
+						<img src="/images/printicon.png" alt="print icon" /> Print
+					</a>
+				</span>
+				<span class="article-footer-item">
+					<img src="/images/linkicon.png" alt="link icon" /> <input type="text" value="http://www.probioticwell.com{{article.link}}" onclick="this.select();" id="article-footer-link-input" /> Link
+				</span>
+				
+				<span id="article-or-review-timestamp" itemprop="datePublished">
+					{{article.date.strftime("%Y/%m/%d")}}
+				</span>
+			</div>
+			<div class="center-text"><h3><a class="main-links" href="javascript:toggleSubscribeForm();">Subscribe</a></h3></div>
+		</div>
+	</section>
+		
+	<div id="article-related-container">
+		<div class="main-headers">
+			<h2>Related Articles</h2>
+		</div>
+		<ul class="list-spacing list-styling">
+			{% for related_article in related_articles %}
+				<li><a href="{{related_article.link}}" class="article-list-links">{{related_article.title}}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="center-text">
+		<a href="/articles" class="main-links">
+			Back to main articles page
+		</a>
+	</div>
+
+{% endblock %}
+
+{% block email_form %}
+
+	<div id="article-email-form-container" class="hidden">
+		<div id="article-email-form" class="visible-forms">
+			<a href="javascript:toggleEmailForm();">
+				<img src="/images/closeicon.png" class="close-button" alt="close button" />
+			</a>
+			
+			<div id="article-email-header" class="form-headers">
+				<h2>Share by Email</h2>
+			</div>
+
+			<label for="email-from" class="email-form-label">From: </label>
+			<input type="text" id="email-from" class="email-form-input" />
+	
+			<label for="email-to" class="email-form-label">To: </label>
+			<input type="text" id="email-to" class="email-form-input" />
+					
+			<div id="email-message-header">
+				<label for="email-message">Message (optional): </label>
+			</div>
+			<textarea id="email-message" maxlength="200"></textarea>
+
+			<div id="email-preview-header">Email content:</div>
+			<div id="email-preview">
+				<img src="/images/PWlogo.png" alt="Probiotic Well logo" />
+				<h2>{{article.title}}</h2>
+				{{article.body|truncate(140, False)|safe}}{% if (article.body|truncate(140, False)) is unclosed_p_tag %}</p>{% endif %}
+				<span id="email-preview-link">Read the rest of the article at probioticwell.com</span>
+			</div>
+			<div class="form-buttons">
+				<input type="button" value="Send" onclick="javascript:sendEmailForm();" /> <input type="button" value="Cancel" onclick="javascript:toggleEmailForm();" />
+			</div>
+			<div id="email-error-success-message" class="error"></div>
+		</div>
+	</div>
+	
+	<div id="subscribe-form-container" class="hidden">
+		<div id="subscribe-form" class="visible-forms">
+			<a href="javascript:toggleSubscribeForm();">
+					<img src="/images/closeicon.png" class="close-button" alt="close button" />
+			</a>
+			<div id="subscribe-header" class="form-headers">
+				<h2>Subscribe for Email Alerts</h2>
+			</div>
+			<label for="subscribe-email" class="email-form-label">Email: </label>
+			<input type="text" id="subscribe-email" class="subscribe-form-input" />
+			I'd like to receive email alerts on new:
+			<br />
+			<label for="subscribe-articles" class="subscribe-form-label">Articles: </label>
+			<input type="checkbox" id="subscribe-articles" />
+			<br />
+			<label for="subscribe-reviews" class="subscribe-form-label">Reviews: </label>
+			<input type="checkbox" id="subscribe-reviews" />
+			<br />
+			<label for="subscribe-sales" class="subscribe-form-label">Probiotic sales:</label>
+			<input type="checkbox" id="subscribe-sales" />
+			<div class="form-buttons">
+				<input type="button" value="Subscribe" onclick="javascript:sendSubscribeForm();" /> <input type="button" value="Cancel" onclick="javascript:toggleSubscribeForm();" />
+			</div>
+			<div id="subscribe-error-success-message" class="error"></div>
+			<div class="center-text small-print">
+				Want to unsubscribe or change your email alert settings?<br /><a href="/email-alert-settings" class="main-links">Click here.</a>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,374 @@
+{% extends "base.html" %}
+
+{% block sidebar %} 
+
+	<div class="filter-headers">Compare Brands:</div>
+				
+		<form method="POST">
+			<label for="probiotic1" class="filter-labels">Probiotic 1:</label>
+			<select id="probiotic1" name="probiotic1" class="filter-dropdowns">
+				<option value="">select</option>
+				{% for product in products %}
+					<option value="{{product.key.id()}}" {% if probiotic_keys[0] == product.key.id() %}selected="selected"{% endif %}>{{product.name}}</option>
+				{% endfor %}
+			</select>
+			
+			<label for="probiotic2" class="filter-labels">Probiotic 2:</label>
+			<select id="probiotic2" name="probiotic2" class="filter-dropdowns">
+				<option value="">select</option>
+				{% for product in products %}
+					<option value="{{product.key.id()}}" {% if probiotic_keys[1] == product.key.id() %}selected="selected"{% endif %}>{{product.name}}</option>
+				{% endfor %}
+			</select>
+			
+			<label for="probiotic3" class="filter-labels">Probiotic 3:</label>
+			<select id="probiotic3" name="probiotic3" class="filter-dropdowns">
+				<option value="">select</option>
+				{% for product in products %}
+					<option value="{{product.key.id()}}" {% if probiotic_keys[2] == product.key.id() %}selected="selected"{% endif %}>{{product.name}}</option>
+				{% endfor %}
+			</select>
+			
+			<label for="probiotic4" class="filter-labels">Probiotic 4:</label>
+			<select id="probiotic4" name="probiotic4" class="filter-dropdowns">
+				<option value="">select</option>
+				{% for product in products %}
+					<option value="{{product.key.id()}}" {% if probiotic_keys[3] == product.key.id() %}selected="selected"{% endif %}>{{product.name}}</option>
+				{% endfor %}
+			</select>
+			
+			<label for="probiotic5" class="filter-labels">Probiotic 5:</label>
+			<select id="probiotic5" name="probiotic5" class="filter-dropdowns">
+				<option value="">select</option>
+				{% for product in products %}
+					<option value="{{product.key.id()}}" {% if probiotic_keys[4] == product.key.id() %}selected="selected"{% endif %}>{{product.name}}</option>
+				{% endfor %}
+			</select>
+			
+			<input type="submit" value="Compare" class="filter-buttons" />
+		</form>
+
+{% endblock %}
+	
+{% block nav %} 
+
+	<div class="nav-link-noncurrent nav-links"><a href="/">Home</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/brands">Shop Brands</a></div>
+	<div class="nav-link-current nav-links">Compare Brands</div>
+	<div class="nav-link-noncurrent nav-links"><a href="/articles">Articles</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/reviews">Reviews</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/about">About</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/contact">Contact</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/resources">Resources</a></div>
+
+{% endblock %}
+
+{% block content %} 
+
+	<section>
+		<div class="main-headers">
+			<h2>Comparison Chart</h2>
+		</div>
+		
+		<form method="POST">
+			<div id="compare-quick">
+				<label class="sort-headers" for="compare-sort-dropdown">Quick Compare:</label>
+					<select id="compare-sort-dropdown" name="compare-sort-dropdown" onchange="this.form.submit()">
+						<option value="">select sort</option>
+						<option value="popular" {% if sort == "popular" %}selected="selected"{% endif %}>most popular</option>
+						<option value="pearls" {% if sort == "pearls" %}selected="selected"{% endif %}>pearls</option>
+						<option value="strain-count" {% if sort == "strain-count" %}selected="selected"{% endif %}>most strains</option>
+						<option value="cfu" {% if sort == "cfu" %}selected="selected"{% endif %}>highest CFU count</option>
+					</select>
+			</div>
+		</form>
+	
+		<table id="compare-table">
+			<tr>
+				<td class="compare-td">
+				</td>
+				<td class="compare-td">
+					<a href="{{product1.link}}" class="main-links">{{product1.name}}</a>
+				</td>
+				<td class="compare-td">
+					<a href="{{product2.link}}" class="main-links">{{product2.name}}</a>
+				</td>
+				<td class="compare-td">
+					<a href="{{product3.link}}" class="main-links">{{product3.name}}</a>
+				</td>
+				<td class="compare-td">
+					<a href="{{product4.link}}" class="main-links">{{product4.name}}</a>
+				</td>
+				<td class="compare-td">
+					<a href="{{product5.link}}" class="main-links">{{product5.name}}</a>
+				</td>
+			</tr>
+			
+			<tr>
+				<td class="compare-td-left">
+					<a href="#refrigeration" class="main-links" title="?">No refrigeration required</a>:
+				</td>
+				<td class="compare-td-value">
+					{% if product1.refrigeration_required == False %}
+						<span class="compare-yes">Yes</span>
+					{% elif product1.refrigeration_required == True  %}
+						<span class="compare-no">No</span>
+					{% endif %}
+				</td>
+				<td class="compare-td-value">
+					{% if product2.refrigeration_required == False %}
+						<span class="compare-yes">Yes</span>
+					{% elif product2.refrigeration_required == True  %}
+						<span class="compare-no">No</span>
+					{% endif %}
+				</td>
+				<td class="compare-td-value">
+					{% if product3.refrigeration_required == False %}
+						<span class="compare-yes">Yes</span>
+					{% elif product3.refrigeration_required == True %}
+						<span class="compare-no">No</span>
+					{% endif %}
+				</td>
+				<td class="compare-td-value">
+					{% if product4.refrigeration_required == False %}
+						<span class="compare-yes">Yes</span>
+					{% elif product4.refrigeration_required == True  %}
+						<span class="compare-no">No</span>
+					{% endif %}
+				</td>
+				<td class="compare-td-value">
+					{% if product5.refrigeration_required == False %}
+						<span class="compare-yes">Yes</span>
+					{% elif product5.refrigeration_required == True  %}
+						<span class="compare-no">No</span>
+					{% endif %}
+				</td>
+			</tr>
+			
+			<tr>
+				<td class="compare-td-left">
+					<a href="#delivery-method" class="main-links" title="?">Delivery method</a>:
+				</td>
+				<td class="compare-td-value">
+					{{product1.delivery_method}}
+				</td>
+				<td class="compare-td-value">
+					{{product2.delivery_method}}
+				</td>
+				<td class="compare-td-value">
+					{{product3.delivery_method}}
+				</td>
+				<td class="compare-td-value">
+					{{product4.delivery_method}}
+				</td>
+				<td class="compare-td-value">
+					{{product5.delivery_method}}
+				</td>
+			</tr>
+			
+			<tr>
+				<td class="compare-td-left">
+					<a href="#stomach-acid-protection" class="main-links" title="?">Stomach acid protection</a>:
+				</td>
+				<td class="compare-td-value">
+					{% if product1.stomach_acid_protection == True %}
+						<span class="compare-yes">Yes</span>
+					{% elif product1.stomach_acid_protection == False %}
+						<span class="compare-no">No</span>
+					{% endif %}
+				</td>
+				<td class="compare-td-value">
+					{% if product2.stomach_acid_protection == True %}
+						<span class="compare-yes">Yes</span>
+					{% elif product2.stomach_acid_protection == False %}
+						<span class="compare-no">No</span>
+					{% endif %}
+				</td>
+				<td class="compare-td-value">
+					{% if product3.stomach_acid_protection == True %}
+						<span class="compare-yes">Yes</span>
+					{% elif product3.stomach_acid_protection == False %}
+						<span class="compare-no">No</span>
+					{% endif %}
+				</td>
+				<td class="compare-td-value">
+					{% if product4.stomach_acid_protection == True %}
+						<span class="compare-yes">Yes</span>
+					{% elif product4.stomach_acid_protection == False %}
+						<span class="compare-no">No</span>
+					{% endif %}
+				</td>
+				<td class="compare-td-value">
+					{% if product5.stomach_acid_protection == True %}
+						<span class="compare-yes">Yes</span>
+					{% elif product5.stomach_acid_protection == False %}
+						<span class="compare-no">No</span>
+					{% endif %}
+				</td>
+			</tr>
+			
+			<tr>
+				<td class="compare-td-left">
+					<a href="#strains" class="main-links" title="?">Strains</a>:
+				</td>
+				<td class="compare-td-value">
+					{{product1.strain_count}}
+				</td>
+				<td class="compare-td-value">
+					{{product2.strain_count}}
+				</td>
+				<td class="compare-td-value">
+					{{product3.strain_count}}
+				</td>
+				<td class="compare-td-value">
+					{{product4.strain_count}}
+				</td>
+				<td class="compare-td-value">
+					{{product5.strain_count}}
+				</td>
+			</tr>
+			
+			<tr>
+				<td class="compare-td-left">
+					<a href="#cfu-count" class="main-links" title="?">CFU count</a>:
+				</td>
+				<td class="compare-td-value">
+					{{product1.cfu}} {{product1.cfu_quantity}}
+				</td>
+				<td class="compare-td-value">
+					{{product2.cfu}} {{product2.cfu_quantity}}
+				</td>
+				<td class="compare-td-value">
+					{{product3.cfu}} {{product3.cfu_quantity}}
+				</td>
+				<td class="compare-td-value">
+					{{product4.cfu}} {{product4.cfu_quantity}}
+				</td>
+				<td class="compare-td-value">
+					{{product5.cfu}} {{product5.cfu_quantity}}
+				</td>
+			</tr>
+		</table>
+		
+		<section id="compare-details">
+			<div id="refrigeration" class="main-headers">
+				<h3>Refrigeration:</h3>
+			</div>
+				<p>
+					Probiotics that require refrigeration to keep the good bacteria alive can sometimes be less effective compared to their 
+					non-refrigerated counterparts depending on how they're shipped to stores and how they're stored afterward. 
+				</p>
+				<p>
+					Whether refrigerated or non-refrigerated probiotics are better is still up for debate, but some people prefer the latter 
+					due to a more stable shelf life. 
+				</p>
+				<p>
+					To get the most out of your probiotics, be sure to check the back label for refrigeration instructions. Even pill and 
+					capsule forms of probiotics often have a "refrigeration recommended" note on the back, which is easy to overlook.
+					A brand claiming to contain 10, 25, or even 50 billion live bacteria might not mean anything as the live 
+					bacteria can die off if not properly stored.
+				</p>
+			
+			<div id="delivery-method" class="main-headers">
+				<h3>Delivery Method:</h3>
+			</div>
+				<p>
+					Probiotics come in a variety of delivery methods, each with its own benefits and possible drawbacks.
+				</p>
+				<p>
+					<strong>Pearls:</strong>
+					<br />
+					Pearls are named such because of their small size and smooth, round shape resembling a pearl. Even someone who normally 
+					has trouble swallowing pills or tablets can probably swallow pearls with ease. Oftentimes pearls don't require refrigeration 
+					and have a coating that protects against stomach acid. 
+				</p>
+				<p>
+					<strong>Pills:</strong>
+					<br />
+					Pressed-powder pills may or may not require refrigeration or have a coating that protects against stomach acid. Always check 
+					the label for storage recommendations.
+				</p>
+				<p>
+					<strong>Capsules:</strong>
+					<br />
+					As with pills, capsules may also require refrigeration. Check the label for storage recommendations.
+				</p>
+				<p>
+					<strong>Chewable Tablets:</strong>
+					<br />
+					Chewable probiotics are good for children or those who have trouble swallowing pills, but the downside 
+					is that they offer no protection against stomach acid which can kill the good bacteria before 
+					it has much of a chance to colonize your gut. A higher CFU (bacteria) count can better the odds of some 
+					of the good bacteria surviving, but many believe probiotics with stomach acid protection are much more effective.
+					Chewable tablets may also require refrigeration, so be sure to check the label.
+				</p>
+				<p>
+					<strong>Liquids:</strong>
+					<br />
+					Liquid probiotics have much the same advantages and downsides as chewable tablets; they're easy to swallow 
+					but have no protection against stomach acid. Most liquid forms require refrigeration.
+				</p>
+				<p>
+					<strong>Powders:</strong>
+					<br />
+					Powder probiotics are also an option for those who have difficulty swallowing pills, but they likewise have the 
+					drawback of offering no protection against stomach acid. They may require refrigeration; check the label for 
+					storage recommendations.
+				</p>
+			
+			<div id="stomach-acid-protection" class="main-headers">
+				<h3>Stomach Acid Protection:</h3>
+			</div>
+				<p>
+					In order to reach and colonize the intestines, probiotics must first make it past your acidic stomach. This is 
+					why many consider an enteric coating or some form of stomach acid protection one of the most important aspects 
+					to consider when choosing a probiotic. 
+				</p>
+				<p>
+					Enteric coatings are usually comprised of some type of fatty acid, plant fiber, wax, plastic, or shellac. 
+				</p>
+			
+			<div id="strains" class="main-headers">
+				<h3>Strains:</h3>
+			</div>
+				<p>
+					Bacteria are categorized by genus (or family) and species. Each species that a probiotic contains is a different strain 
+					even if it comes from the same family. Some common genuses in probiotics are lactobacillus and bifidobacterium.
+					Each of these families contains multiple species. So a probiotic containing Lactobacillus acidophilus, Lactobacillus 
+					rhamnosus, Bifidobacterium longum, and Bifidobacterium bifidum contains 4 strains.
+				</p>
+				<p>
+					It's generally accepted that a probiotic which contain a bigger variety of strains is better than one that only contains 
+					1 or 2 strains. Your gut is naturally home to dozens and dozens of different strains of 'good' bacteria, which helps it
+					keep a healthy balance. Each different strain or species of bacteria may have a different role in your gut and help to
+					break down or digest food in different ways. This is also why a healthy gut has such a variety of bacteria species, 
+					as should your probiotic many believe.
+				</p>
+			
+			<div id="cfu-count" class="main-headers">
+				<h3>CFU Count:</h3>
+			</div>
+				<p>
+					CFU stands for colony-forming unit. It's a microbiology term for estimating viable (living) bacteria cells. So a CFU count 
+					of 1 billions means there is an estimated count of 1 billion live bacteria contained per serving for that probiotic.
+				</p>
+				<p>
+					CFU counts vary widely in probiotics, with 1 billion all the way up to 50 or more billion being listed. Many believe a high 
+					CFU count (perhaps 5 billion or more) to be one of the most important factors in choosing a probiotic (along with a delivery 
+					method that protects against stomach acid), but there is no set CFU count alone that makes a probiotic considered good. 
+				</p>
+				<p>
+					The CFU count should be considered along with the storage method and whether or not it is enteric coated. A 50 billion CFU count might
+					not be as effective as a 2 billion CFU count if it's improperly stored (not refrigerated when the label recommends it) and if
+					most of those bacteria are killed by stomach acid (not protected by an enteric coating) before reaching the intestines.
+				</p>
+	
+		</section>
+		
+		<div class="center-text">
+			<a href="#" class="main-links">Back to top</a>
+		</div>
+		
+	</section>
+
+{% endblock %}

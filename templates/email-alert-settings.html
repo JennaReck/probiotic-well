@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block sidebar %} 
+
+	{% for ad in ads %}
+		{{ad|safe}}
+	{% endfor %}
+	
+{% endblock %}
+
+{% block nav %} 
+
+	<div class="nav-link-noncurrent nav-links"><a href="/">Home</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/brands">Shop Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/compare">Compare Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/articles">Articles</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/reviews">Reviews</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/about">About</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/contact">Contact</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/resources">Resources</a></div>
+	
+{% endblock %}
+
+{% block content %} 
+
+	<section>
+		<div class="main-headers">
+			<h2>Email Alert Settings</h2>
+		</div>
+		<div class="success center-text"><h3>{{success_message}}</h3></div>
+		<div id="subscribe-settings-container">
+			<form method="post" onsubmit="return checkSubscribeForm(this);">
+				<label for="subscribe-email" class="email-form-label">Email: </label>
+				<input type="text" class="subscribe-form-input" id="subscribe-email" name="subscribe-email" />
+				<p>
+				I'd like to receive email alerts on new:
+				</p>
+				<label for="subscribe-articles" class="subscribe-settings-label">Articles: </label>
+				<input type="checkbox" id="subscribe-articles" name="subscribe-articles" />
+				<br />
+				<label for="subscribe-reviews" class="subscribe-settings-label">Reviews: </label>
+				<input type="checkbox" id="subscribe-reviews" name="subscribe-reviews" />
+				<br />
+				<label for="subscribe-sales" class="subscribe-settings-label">Probiotic sales:</label>
+				<input type="checkbox" id="subscribe-sales" name="subscribe-sales" />
+				<br />
+				<label for="unsubscribe" class="subscribe-settings-label">Unsubscribe me from all emails: </label>
+				<input type="checkbox" id="unsubscribe" name="unsubscribe" />
+				<div class="form-buttons">
+					<input type="submit" value="Submit Changes" />
+				</div>
+			</form>
+			<div id="subscribe-error-success-message" class="error"></div>
+		</div>
+	</section>
+
+{% endblock %}

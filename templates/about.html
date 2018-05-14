@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block sidebar %} 
+
+	{% for ad in ads %}
+		{{ad|safe}}
+	{% endfor %}
+	
+{% endblock %}
+
+{% block nav %} 
+
+	<div class="nav-link-noncurrent nav-links"><a href="/">Home</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/brands">Shop Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/compare">Compare Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/articles">Articles</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/reviews">Reviews</a></div>
+	<div class="nav-link-current nav-links">About</div>
+	<div class="nav-link-noncurrent nav-links"><a href="/contact">Contact</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/resources">Resources</a></div>
+	
+{% endblock %}
+
+{% block content %} 
+
+	<section>
+					
+		<div id="about-body">
+			<img src="/images/PWgoal.jpg" alt="probiotics" id="about-img" />
+			
+			<div id="about-header" class="main-headers">
+				<h2>About Us</h2>
+			</div>
+			
+			<p>
+				Probiotic Well is the culmination of years of my own personal experience with health and gastrointestinal 
+				issues and subsequent interest and research of probiotics. As the creator of Probiotic Well, I don't claim 
+				to have a doctorate of medicine or to be an unquestionable expert on the topic of gut health and probiotics. 
+				What I do have is my own personal experience with various probiotics in their many delivery methods and forms 
+				along with my own research and reading on the subject. 
+			</p>
+			
+			<p>
+				As a naturally skeptical person, I always liked to do my own research on natural 'cures' and supplements after
+				traditional medicine failed to offer me much help. The most important things I learned were: 
+			</p>
+			<p>
+				<strong>1. If it's too good to be true, it probably is.</strong>
+			</p>
+			<p>
+				Probiotics aren't magical cures. You probably won't find relief from your health issues overnight, nor will 
+				probiotics help all health concerns. If a probiotic (or any supplement, really) claims it will cure your cancer, 
+				grow your hair back, and make you 20 years younger, you should probably steer clear. Such promises abound in the 
+				alternative medicine and supplement market. Is that to say all supplements or probiotics are overrated and ineffective?
+				No, of course not, which brings me to number two.
+			</p>
+			<p>
+				<strong>2. Not all probiotics are created equal.</strong>
+			</p>
+			<p>
+				When I first tried a few different probiotic types many years ago for my gastrointestinal issues, I didn't find 
+				any improvement and pretty much discounted all probiotics. This wasn't a fair assumption to make, however. Years later 
+				(and after much more research on probiotics and the science behind them) I gave them another shot, determined to find
+				more effective and reputable ones. 
+			</p>
+			<p>
+				I learned of many reasons why my prior experimentation with various probiotics didn't have much, if any, positive benefit. 
+				I hadn't taken into account CFU (bacteria) counts, the number of strains, whether or not they were coated to protect against 
+				stomach acid, or proper refrigerated storage. No wonder my low-CFU, 1-strain, non-stomach-acid-protected, improperly-stored 
+				probiotics weren't effective in the past!	
+			</p>
+			<p>
+				Now I've found many which work better for me, and the knowledge I've learned along the way has given me some new hope for my
+				personal gut issues. Probiotic Well is my way of trying to give back what I've learned; a place to offer honest probiotic reviews
+				and informative articles to help others make better informed choices. After all, "better health begins with better knowledge," and
+				I can only hope this site can accomplish that.
+			</p>
+			
+			<div class="main-headers">
+				<h2>Our Affiliate Status</h2>
+			</div>
+			<p>
+				Probiotic Well does use affiliate links to Amazon on qualifying probiotics, but this in no way affects which probiotics get higher
+				ratings or which get featured. Our criteria for ratings or which probiotics to add to the site are based on CFU counts, strains, 
+				delivery methods, ingredients, etc. Affiliate links on qualifying products are helpful in covering website and server costs, but 
+				sharing honest information and quality probiotics is always our top priority.
+			</p>
+			<p>
+				For more information about our affiliate links, please read our <a href="/disclaimer#affiliate-disclaimer">affiliate disclaimer</a>. 
+			</p>
+			
+			<p>
+				If you have any questions, comments, or concerns, please visit our <a href="/contact">contact</a> page to get in touch.
+			</p>
+			
+		</div>
+		
+	</section>
+	
+{% endblock %}

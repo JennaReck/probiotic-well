@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+
+	<link rel="stylesheet" href="/css.script/uploadstyle.css" />
+
+{% endblock %}
+
+{% block nav %} 
+
+	<div class="nav-link-noncurrent nav-links"><a href="/">Home</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/brands">Shop Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/compare">Compare Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/articles">Articles</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/reviews">Reviews</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/about">About</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/contact">Contact</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/resources">Resources</a></div>
+	
+{% endblock %}
+
+{% block content %} 
+
+	<div class="center-text">
+		<h1>Admin Panel:</h1>
+	</div>
+	<div id="admin-link-container">
+		<ul>
+			<li><a href="/product-upload" class="main-links">Product upload</a></li>
+			<li><a href="/review-image-upload" class="main-links">Review image upload</a></li>
+			<li><a href="/review-upload" class="main-links">Review upload</a></li>
+			<li><a href="/article-upload" class="main-links">Article upload</a></li>
+			<li><a href="/resources-upload" class="main-links">Resources upload</a></li>
+			<li><a href="/ad-upload" class="main-links">Ad upload</a></li>
+			<li><a href="/featured-settings" class="main-links">Featured settings</a></li>
+			<li><a href="/ad-settings" class="main-links">Ad settings</a></li>
+			<li><a href="/delete-panel" class="main-links">Delete Panel</a></li>
+		</ul>
+		<a href="/logout" class="main-links">Logout</a>
+	</div>
+	
+	
+{% endblock %}

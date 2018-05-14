@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block sidebar %} 
+
+	{% for ad in ads %}
+		{{ad|safe}}
+	{% endfor %}
+	
+{% endblock %}
+
+{% block nav %} 
+
+	<div class="nav-link-noncurrent nav-links"><a href="/">Home</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/brands">Shop Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/compare">Compare Brands</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/articles">Articles</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/reviews">Reviews</a></div>
+	<div class="nav-link-noncurrent nav-links"><a href="/about">About</a></div>
+	<div class="nav-link-current nav-links">Contact</div>
+	<div class="nav-link-noncurrent nav-links"><a href="/resources">Resources</a></div>
+	
+{% endblock %}
+
+{% block content %} 
+
+	<section id="contact-main-container">
+		<div class="main-headers">
+			<h2>Contact Us</h2>
+		</div>
+		
+		<p>
+			Have any questions or comments about us or our content? Please send us a quick email and we'll try to get back to you soon.
+		</p>
+		<p>
+			You can also check out our <a href="/about">about</a> page if you haven't already.
+		</p>
+		
+		
+			<div id="contact-success" class="center-text success">
+				{% if status == "success" %}
+					<h2>Your message has been sent. Thank you for contacting us!</h2>
+				{% endif %}
+			</div>
+		
+		
+		<form method="post" onsubmit="return checkContactForm(this);">
+			<table id="contact-table">
+				<tr>
+					<td>
+						<label for="contact-from">Your Email: </label> 
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" name="contact-from" id="contact-from" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="contact-subject">Subject: </label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="text" name="contact-subject" id="contact-subject" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="contact-message">Question or Comment: </label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<textarea name="contact-message" id="contact-message"></textarea>
+					</td>
+				</tr>
+			</table>
+			
+			<div id="contact-error" class="error center-text">
+			</div>
+			<div class="center-text">	
+				<input type="submit" value="Submit" />
+			</div>
+		</form>
+		
+	</section>
+	
+{% endblock %}
